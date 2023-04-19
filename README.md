@@ -143,9 +143,9 @@ yarn install
     # On Linux of Mac:
    ./run.sh start
    # On Windows:
-   ./run.bat start
+   .\run.bat
    ```
-   Running with `--help` after `start` lists all the possible command line arguments you can pass.
+   Running with `--help` after `.\run.bat` lists all the possible command line arguments you can pass.
 
 2. After each action, choose from options to authorize command(s),
 exit the program, or provide feedback to the AI.
