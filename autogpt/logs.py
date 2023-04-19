@@ -33,7 +33,7 @@ class Logger(metaclass=Singleton):
         log_file = "activity.log"
         error_file = "error.log"
 
-        console_formatter = AutoGptFormatter("%(title_color)s %(message)s")
+        console_formatter = AutoGptFormatter('{"title": "%(title_color)s", "content": "%(message)s"},')
 
         # Create a handler for console which simulate typing
         self.typing_console_handler = TypingConsoleHandler()
@@ -51,7 +51,7 @@ class Logger(metaclass=Singleton):
         )
         self.file_handler.setLevel(logging.DEBUG)
         info_formatter = AutoGptFormatter(
-            "%(asctime)s %(levelname)s %(title)s %(message_no_color)s"
+            '{ "title": "%(title)s", "content": "%(message_no_color)s" },'
         )
         self.file_handler.setFormatter(info_formatter)
 
@@ -91,7 +91,7 @@ class Logger(metaclass=Singleton):
             content = ""
 
         self.typing_logger.log(
-            level, content, extra={"title": title, "color": title_color}
+            level, content, extra={"title": title}
         )
 
     def debug(
@@ -147,17 +147,7 @@ class TypingConsoleHandler(logging.StreamHandler):
 
         msg = self.format(record)
         try:
-            words = msg.split()
-            for i, word in enumerate(words):
-                print(word, end="", flush=True)
-                if i < len(words) - 1:
-                    print(" ", end="", flush=True)
-                typing_speed = random.uniform(min_typing_speed, max_typing_speed)
-                time.sleep(typing_speed)
-                # type faster after each word
-                min_typing_speed = min_typing_speed * 0.95
-                max_typing_speed = max_typing_speed * 0.95
-            print()
+            print(msg, end="", flush=True)
         except Exception:
             self.handleError(record)
 

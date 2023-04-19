@@ -130,6 +130,11 @@ _To execute the following commands, open a CMD, Bash, or Powershell window by na
        ```
      - Details can be found here: https://pypi.org/project/openai/ in the `Microsoft Azure Endpoints` section and here: https://learn.microsoft.com/en-us/azure/cognitive-services/openai/tutorials/embeddings?tabs=command-line for the embedding model.
 
+5. Navigate to /front folder and install yarn dependencies:
+```sh
+cd front
+yarn install
+```
 ## 🔧 Usage
 
 1. Run `autogpt` Python module in your terminal.
@@ -148,6 +153,13 @@ exit the program, or provide feedback to the AI.
    2. Authorize a series of _N_ continuous commands, enter `y -N`
    3. Exit the program, enter `n`
 
+2. After each of AUTO-GPT's actions, type "NEXT COMMAND" to authorise them to continue.
+3. To exit the program, type "exit" and press Enter.
+4. To use web ui run in front folder :
+```sh
+cd front
+vite
+```
 
 ### Logs
 

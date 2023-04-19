@@ -71,14 +71,14 @@ class Agent:
                 break
 
             # Send message to AI, get response
-            with Spinner("Thinking... "):
-                assistant_reply = chat_with_ai(
-                    self.system_prompt,
-                    self.triggering_prompt,
-                    self.full_message_history,
-                    self.memory,
-                    cfg.fast_token_limit,
-                )  # TODO: This hardcodes the model to use GPT3.5. Make this an argument
+            logger.typewriter_log("Thinking")
+            assistant_reply = chat_with_ai(
+                self.system_prompt,
+                self.triggering_prompt,
+                self.full_message_history,
+                self.memory,
+                cfg.fast_token_limit,
+            )  # TODO: This hardcodes the model to use GPT3.5. Make this an argument
 
             assistant_reply_json = fix_json_using_multiple_techniques(assistant_reply)
 
@@ -102,19 +102,17 @@ class Agent:
                 logger.typewriter_log(
                     "NEXT ACTION: ",
                     Fore.CYAN,
-                    f"COMMAND = {Fore.CYAN}{command_name}{Style.RESET_ALL}  "
-                    f"ARGUMENTS = {Fore.CYAN}{arguments}{Style.RESET_ALL}",
+                    f"COMMAND = {command_name} "
+                    f"ARGUMENTS = {arguments}",
                 )
-                print(
-                    "Enter 'y' to authorise command, 'y -N' to run N continuous "
-                    "commands, 'n' to exit program, or enter feedback for "
-                    f"{self.ai_name}...",
-                    flush=True,
-                )
+                # print(
+                #     "Enter 'y' to authorise command, 'y -N' to run N continuous "
+                #     "commands, 'n' to exit program, or enter feedback for "
+                #     f"{self.ai_name}...",
+                #     flush=True,
+                # )
                 while True:
-                    console_input = clean_input(
-                        Fore.MAGENTA + "Input:" + Style.RESET_ALL
-                    )
+                    console_input = "y"
                     if console_input.lower().strip() == "y":
                         user_input = "GENERATE NEXT COMMAND JSON"
                         break
@@ -142,22 +140,16 @@ class Agent:
                         command_name = "human_feedback"
                         break
 
-                if user_input == "GENERATE NEXT COMMAND JSON":
-                    logger.typewriter_log(
-                        "-=-=-=-=-=-=-= COMMAND AUTHORISED BY USER -=-=-=-=-=-=-=",
-                        Fore.MAGENTA,
-                        "",
-                    )
-                elif user_input == "EXIT":
-                    print("Exiting...", flush=True)
+                
+                if user_input == "EXIT":
                     break
             else:
                 # Print command
                 logger.typewriter_log(
                     "NEXT ACTION: ",
                     Fore.CYAN,
-                    f"COMMAND = {Fore.CYAN}{command_name}{Style.RESET_ALL}"
-                    f"  ARGUMENTS = {Fore.CYAN}{arguments}{Style.RESET_ALL}",
+                    f"COMMAND = {command_name}"
+                    f" ARGUMENTS = {arguments}",
                 )
 
             # Execute command

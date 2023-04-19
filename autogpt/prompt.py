@@ -183,13 +183,7 @@ def construct_prompt() -> str:
             f"Would you like me to return to being {config.ai_name}?",
             speak_text=True,
         )
-        should_continue = clean_input(
-            f"""Continue with the last settings?
-Name:  {config.ai_name}
-Role:  {config.ai_role}
-Goals: {config.ai_goals}
-Continue (y/n): """
-        )
+        should_continue = "y"
         if should_continue.lower() == "n":
             config = AIConfig()
 
