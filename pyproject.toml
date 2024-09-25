@@ -1,16 +1,15 @@
-[project]
+[tool.poetry]
 name = "auto-gpt"
 version = "0.1.0"
 description = "A GPT based ai agent"
-readme = "README.md"
+authors = ["Seu Nome <seu.email@example.com>"]
+packages = [{include = "autogpt"}]
 
 [tool.black]
 line-length = 88
 target-version = ['py310']
 include = '\.pyi?$'
-packages = ["autogpt"]
 extend-exclude = '.+/(dist|.venv|venv|build)/.+'
-
 
 [tool.isort]
 profile = "black"
@@ -36,5 +35,4 @@ skip = '''
     .venv/*
     reports/*
     dist/*
-
 '''

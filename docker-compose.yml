@@ -1,5 +1,3 @@
-# To boot the app run the following:
-# docker-compose run auto-gpt
 version: "3.9"
 
 services:
@@ -10,9 +8,12 @@ services:
     env_file:
       - .env
     volumes:
-      - "./autogpt:/app"
-      - ".env:/app/.env"
-    profiles: ["exclude-from-up"]
+      - "./autogpt:/app"  # Volume para o código do app
+      - ".env:/app/.env"  # Volume para o arquivo .env
+      - "/mnt/g:/mnt/google-drive"  # Diretório onde o Google Drive será montado no contêiner
+     # - "/caminho/local/rclone.conf:/root/.config/rclone/rclone.conf"  # Monte o rclone.conf (credenciais do Google Drive)
+    #profiles: ["exclude-from-up"]
+   # entrypoint: ["/bin/bash", "-c", "rclone mount gdrive:/ /mnt/gdrive --config /root/.config/rclone/rclone.conf --vfs-cache-mode writes & exec auto-gpt"]
 
   redis:
     image: "redis/redis-stack-server:latest"
